@@ -7,10 +7,10 @@ Echo ############################################################
 Echo ##                                                        ##
 Echo ##               Symlink Installer Script                 ##
 Echo ##                                                        ##
-Echo ## This script creates a symlink on a local machine. A    ##
+Echo ## This script creates symlinks on the local machine. A   ##
 Echo ## symlink is a type of file that points to another file  ##
 Echo ## or directory on the file system. The user can specify  ##
-Echo ## the source and target paths for the symlink in a JSON  ##
+Echo ## the source and target paths for the symlinks in a JSON ##
 Echo ## file named 'paths.json'. The script also adds registry ##
 Echo ## values and creates shortcuts if the 'keys.json' and    ##
 Echo ## 'shortcuts.json' files are present.                    ##
@@ -181,12 +181,7 @@ if %ERRORLEVEL% neq 0 (
     exit /B
 )
 
-
-
-
 endlocal
-
 echo Install complete.
-
 :: End
 pause
