@@ -1,0 +1,14 @@
+{
+  "paths": [
+    {
+      "architecture": "32",
+      "source": "c:\path\to\source1",
+      "target": "c:\path\to\target1"
+    },
+    {
+      "architecture": "64",
+      "source": "c:\path\to\source3",
+      "target": "c:\path\to\target3"
+    }
+  ]
+}
