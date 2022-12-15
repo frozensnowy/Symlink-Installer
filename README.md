@@ -59,11 +59,25 @@ The registry.json file contains the registry keys that need to be updated with t
     {
       "architecture": "64-bit",
       "path": "HKEY_LOCAL_MACHINE\\Software\\MyApp\\Settings",
-      "value": "C:\\Program Files\\MyApp"
+      "value": "C:\\Program Files\\MyApp",
+      "registryType": "REG_SZ"
     }
   ]
 }
 ```
+
+The RegistryType doesn't need to be defined, by default it will make it set to be a string. (SZ).
+
+Possible values include: 
+- SZ: for string values
+- MULTI_SZ: for multiple string values
+- DWORD: for 32-bit integer values
+- QWORD: for 64-bit integer values
+- BINARY: for binary data
+- EXPAND_SZ: for expandable string values
+- NONE: for registry values without a defined data type
+
+Normally a prefix is added before the types, but the code does this automatically, for you.
 
 ### shortcuts.json (optional)
 
