@@ -1,14 +1,14 @@
 {
   "paths": [
     {
-      "architecture": "32",
+      "architecture": "32-bit",
       "source": "c:\path\to\source1",
       "target": "c:\path\to\target1"
     },
     {
-      "architecture": "64",
-      "source": "c:\path\to\source3",
-      "target": "c:\path\to\target3"
+      "architecture": "64-bit",
+      "source": "c:\path\to\source2",
+      "target": "c:\path\to\target2"
     }
   ]
 }
