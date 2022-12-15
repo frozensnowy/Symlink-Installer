@@ -93,3 +93,7 @@ Notes
 - The script includes error handling to check if the source and target paths exist, if the necessary directories have been created, and if the target path is on an NTFS file system.
 - The script will prompt the user to replace the target path if it already exists.
 - There is also an `uninstall.cmd` script that can be used to undo the changes of the install scrip.
+
+Credits:
+
+This script was inspired by a script I created previously for making portable versions of software for use in collaboration with @mczaplinski. Check his github out here: https://github.com/mczaplinski
