@@ -1,0 +1,14 @@
+{
+  "keys": [
+    {
+      "architecture": "32-bit",
+      "path": "HKEY_LOCAL_MACHINE\Software\MyApp\Settings",
+      "value": "C:\Program Files\MyApp"
+    },
+    {
+      "architecture": "64-bit",
+      "path": "HKEY_LOCAL_MACHINE\Software\MyApp\Settings",
+      "value": "C:\Program Files\MyApp"
+    }
+  ]
+}
