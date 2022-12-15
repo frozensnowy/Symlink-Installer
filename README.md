@@ -44,7 +44,7 @@ The `files.json` file contains the source and target paths for the symbolic link
 }
 ```
 
-registry.json (optional)
+### registry.json (optional)
 
 The registry.json file contains the registry keys that need to be updated with the target path. The file should be formatted as follows:
 
@@ -65,7 +65,7 @@ The registry.json file contains the registry keys that need to be updated with t
 }
 ```
 
-shortcuts.json (optional)
+### shortcuts.json (optional)
 
 The shortcuts.json file contains the shortcuts that need to be created and updated with the target path. The file should be formatted as follows:
 
@@ -86,7 +86,7 @@ The shortcuts.json file contains the shortcuts that need to be created and updat
 }
 ```
 
-### Notes
+## Notes
 
 - The script requires administrator privileges to run. If you do not have administrator privileges, the script will prompt you to enter your credentials and will relaunch itself with the necessary privileges.
 - The `registry.json` and `shortcuts.json` files are optional. If they are not found, the script will display a warning but will continue to run.
@@ -94,6 +94,6 @@ The shortcuts.json file contains the shortcuts that need to be created and updat
 - The script will prompt the user to replace the target path if it already exists.
 - There is also an `uninstall.cmd` script that can be used to undo the changes of the install scrip.
 
-### Credits
+## Acknowledgements
 
 This script was inspired by a script I created previously for making portable versions of software for use in collaboration with @mczaplinski. Check his github out here: https://github.com/mczaplinski
