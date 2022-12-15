@@ -2,7 +2,9 @@
 
 This script is used to create a symbolic link on a Windows system. It requires administrative privileges to run.
 
-The script first checks the architecture of the operating system, and then looks for a matching entry in a JSON file called `paths.json`. (It also supports keys.json and shortcuts.json. More information will follow later on those...)
+The script first checks the architecture of the operating system, and then looks for a matching entry in a JSON file called `paths.json`. 
+
+It also supports `keys.json` and `shortcuts.json`. More information will follow later on those as it's 4 AM while I write this lol
 
 The JSON file should contain a list of objects with the following format:
 
