@@ -1,5 +1,5 @@
 {
-  "keys": [
+  "registry": [
     {
       "architecture": "32-bit",
       "path": "HKEY_LOCAL_MACHINE\\Software\\MyApp\\Settings",
