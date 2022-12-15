@@ -126,25 +126,29 @@ for /f "usebackq tokens=2 delims={}" %%i in (`type registry.json`) do (
         set architecture=%%~j
         set path=%%~k
         set value=%%~l
+        set registryType=%%~m
+        :: Set default registry type if not specified
+        if not defined registryType set registryType=REG_SZ
         :: Check if the key is for the current OS architecture
         if "!architecture!"=="%OS: =%" (
             :: Check if the registry value already exists
-            reg query %windir%\system32\%path:~1,1%^"%~dp0%path:~2%^" /v %value:~1,1%^"%~dp0%value:~2%^" /ve | find /i "ERROR"
+            reg query %path% /v %value% /ve | find /i "ERROR"
             if not errorlevel 1 (
                 :: Get the type and value of the registry value
-                for /f "tokens=2,4 delims==" %%k in (`reg query %windir%\system32\%path:~1,1%^"%~dp0%path:~2%^" /v %value:~1,1%^"%~dp0%value:~2%^" /t ^| find /i "REG_SZ"`) do (
+                for /f "tokens=2,4 delims==" %%k in (`reg query %path% /v %value% /t ^| find /i "REG_SZ"`) do (
                     set type=%%k
                     set val=%%l
                 )
                 :: Modify the registry value
-                reg add %windir%\system32\%path:~1,1%^"%~dp0%path:~2%^" /v %value:~1,1%^"%~dp0%value:~2%^" /t %type% /d %val% /f
+                reg add %path% /v %value% /t %type% /d %val% /f
             ) else (
                 :: Add the registry value
-                reg add %windir%\system32\%path:~1,1%^"%~dp0%path:~2%^" /v %value:~1,1%^"%~dp0%value:~2%^" /t REG_SZ /d %value:~1,1%^"%~dp0%value:~2%^"
+                reg add %path% /v %value% /t %registryType% /d %value%
             )
         )
     )
 )
+
 
 :: Handle any errors that may occur while adding or modifying the registry keys
 if %ERRORLEVEL% neq 0 (
