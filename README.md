@@ -32,13 +32,13 @@ The `paths.json` file contains the source and target paths for the symbolic link
   "paths": [
     {
       "architecture": "32-bit",
-      "source": "c:\path\to\source1",
-      "target": "c:\path\to\target1"
+      "source": "c:\\path\\to\\source1",
+      "target": "c:\\path\\to\\target1"
     },
     {
       "architecture": "64-bit",
-      "source": "c:\path\to\source2",
-      "target": "c:\path\to\target2"
+      "source": "c:\\path\\to\\source2",
+      "target": "c:\\path\\to\\target2"
     }
   ]
 }
@@ -53,13 +53,13 @@ The keys.json file contains the registry keys that need to be updated with the t
   "keys": [
     {
       "architecture": "32-bit",
-      "path": "HKEY_LOCAL_MACHINE\Software\MyApp\Settings",
-      "value": "C:\Program Files\MyApp"
+      "path": "HKEY_LOCAL_MACHINE\\Software\\MyApp\\Settings",
+      "value": "C:\\Program Files\\MyApp"
     },
     {
       "architecture": "64-bit",
-      "path": "HKEY_LOCAL_MACHINE\Software\MyApp\Settings",
-      "value": "C:\Program Files\MyApp"
+      "path": "HKEY_LOCAL_MACHINE\\Software\\MyApp\\Settings",
+      "value": "C:\\Program Files\\MyApp"
     }
   ]
 }
