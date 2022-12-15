@@ -11,9 +11,9 @@ Echo ## This script removes symlinks on the local machine. A   ##
 Echo ## symlink is a type of file that points to another file  ##
 Echo ## or directory on the file system. The user can specify  ##
 Echo ## the source and target paths for the symlinks in a JSON ##
-Echo ## file named 'paths.json'. It only removes the target.   ##
+Echo ## file named 'files.json'. It only removes the target.   ##
 Echo ## The script also adds registry values and creates       ##
-Echo ## shortcuts if the 'keys.json' and 'shortcuts.json'      ##
+Echo ## shortcuts if the 'registry.json' and 'shortcuts.json'  ##
 Echo ## files are present.                                     ##
 Echo ##                                                        ##
 Echo ############################################################
@@ -40,14 +40,14 @@ if %ERRORLEVEL% NEQ 0 (
 )
 echo OS is %OS%
 
-:: Check if paths.json exists and is a file
-if not exist paths.json (
-    echo ERROR: paths.json not found or is not a file.
+:: Check if files.json exists and is a file
+if not exist files.json (
+    echo ERROR: files.json not found or is not a file.
     exit /b
 )
 
 :: Read the JSON file containing the paths
-for /f "usebackq delims=" %%a in (type paths.json) do set "JSON=%%a"
+for /f "usebackq delims=" %%a in (type files.json) do set "JSON=%%a"
 
 :: Iterate over each entry in the paths array
 for /f "tokens=2 delims={}" %%a in ('echo %JSON% ^| findstr /b /c:"{" /e /c:"}"') do (
@@ -85,7 +85,7 @@ for /f "tokens=2 delims={}" %%a in ('echo %JSON% ^| findstr /b /c:"{" /e /c:"}"'
 
 
 :: Read and parse the JSON file containing the registry keys
-for /f "delims=" %%i in (keys.json) do (
+for /f "delims=" %%i in (registry.json) do (
     :: Parse the current key object to get the architecture, path, and value
     for /f "tokens=1,3,5 delims=:" %%j in ("%%i") do (
         set architecture=%%j
