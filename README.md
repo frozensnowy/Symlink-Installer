@@ -89,7 +89,7 @@ The shortcuts.json file contains the shortcuts that need to be created and updat
 Notes
 
 - The script requires administrator privileges to run. If you do not have administrator privileges, the script will prompt you to enter your credentials and will relaunch itself with the necessary privileges.
-- The keys.json and shortcuts.json files are optional. If they are not found, the script will display a warning but will continue to run.
+- The `keys.json` and `shortcuts.json` files are optional. If they are not found, the script will display a warning but will continue to run.
 - The script includes error handling to check if the source and target paths exist, if the necessary directories have been created, and if the target path is on an NTFS file system.
 - The script will prompt the user to replace the target path if it already exists.
-- No uninstall script exists yet, it will be added later.
+- There is also an `uninstall.cmd` script that can be used to undo the changes of the install scrip.
