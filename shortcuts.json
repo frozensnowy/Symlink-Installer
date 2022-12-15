@@ -1,0 +1,12 @@
+{
+    "Shortcut 1": {
+        "source": "C:\\Path\\To\\Source\\File.exe",
+        "destination": "C:\\Path\\To\\Destination\\Directory",
+        "arguments": "-arg1 -arg2"
+    },
+    "Shortcut 2": {
+        "source": "C:\\Path\\To\\Another\\Source\\File.exe",
+        "destination": "C:\\Path\\To\\Another\\Destination\\Directory",
+        "arguments": "-arg1 -arg2"
+    }
+}
