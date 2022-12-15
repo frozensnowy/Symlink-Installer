@@ -60,7 +60,7 @@ The registry.json file contains the registry keys that need to be updated with t
       "architecture": "64-bit",
       "path": "HKEY_LOCAL_MACHINE\\Software\\MyApp\\Settings",
       "value": "C:\\Program Files\\MyApp",
-      "registryType": "REG_SZ"
+      "registryType": "SZ"
     }
   ]
 }
