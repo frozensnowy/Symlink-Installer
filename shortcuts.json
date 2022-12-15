@@ -1,12 +1,14 @@
 {
-    "Shortcut 1": {
-        "source": "C:\\Path\\To\\Source\\File.exe",
-        "destination": "C:\\Path\\To\\Destination\\Directory",
-        "arguments": "-arg1 -arg2"
+  "shortcuts": [
+    {
+      "source": "C:\\Program Files\\My App\\MyApp.exe",
+      "destination": "C:\\Desktop\\MyAppShortcut.lnk",
+      "arguments": "-someargument"
     },
-    "Shortcut 2": {
-        "source": "C:\\Path\\To\\Another\\Source\\File.exe",
-        "destination": "C:\\Path\\To\\Another\\Destination\\Directory",
-        "arguments": "-arg1 -arg2"
+    {
+      "source": "C:\\Program Files\\My App\\MyApp2.exe",
+      "destination": "C:\\Desktop\\MyAppShortcut2.lnk",
+      "arguments": "-someotherargument"
     }
+  ]
 }
