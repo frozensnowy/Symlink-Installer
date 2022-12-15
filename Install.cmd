@@ -11,9 +11,9 @@ Echo ## This script creates symlinks on the local machine. A   ##
 Echo ## symlink is a type of file that points to another file  ##
 Echo ## or directory on the file system. The user can specify  ##
 Echo ## the source and target paths for the symlinks in a JSON ##
-Echo ## file named 'paths.json'. The script also adds registry ##
-Echo ## values and creates shortcuts if the 'keys.json' and    ##
-Echo ## 'shortcuts.json' files are present.                    ##
+Echo ## file named 'files.json'. The script also adds registry ##
+Echo ## values and creates shortcuts if the 'registry.json'    ##
+Echo ## and 'shortcuts.json' files are present.                ##
 Echo ##                                                        ##
 Echo ############################################################
 
@@ -38,16 +38,16 @@ if %ERRORLEVEL% NEQ 0 (
 )
 echo OS is %OS%
 
-:: Check if paths.json exists and is a file
-if not exist paths.json (
-    echo ERROR: paths.json not found or is not a file.
+:: Check if files.json exists and is a file
+if not exist files.json (
+    echo ERROR: files.json not found or is not a file.
     exit /b
 )
 
 
 
 :: Read the JSON file containing the paths
-for /f "usebackq delims=" %%a in (type paths.json) do set "JSON=%%a"
+for /f "usebackq delims=" %%a in (type files.json) do set "JSON=%%a"
 
 :: Check if any paths were found for the system architecture
 for /f "tokens=2 delims={}" %%a in ('echo %JSON% ^| findstr /c:"{" /e /c:"}"') do (
@@ -64,7 +64,7 @@ for /f "tokens=2 delims={}" %%a in ('echo %JSON% ^| findstr /c:"{" /e /c:"}"') d
     )
 )
 if not defined SOURCE (
-    echo ERROR: No matching architecture found in paths.json
+    echo ERROR: No matching architecture found in files.json
     exit /b
 )
 
@@ -117,10 +117,10 @@ for /f "tokens=1" %%a in ('fsutil fsinfo drivetype %TARGET:~0,1%') do (
   )
 )
 
-:: Now we add registry keys to the system using keys.json
+:: Now we add registry keys to the system using registry.json
 
 :: Read and parse the JSON file containing the registry keys
-for /f "usebackq tokens=2 delims={}" %%i in (`type keys.json`) do (
+for /f "usebackq tokens=2 delims={}" %%i in (`type registry.json`) do (
     :: Parse the current key object to get the architecture, path, and value
     for /f "usebackq tokens=*" %%j in (`echo %%i`) do (
         set architecture=%%~j
