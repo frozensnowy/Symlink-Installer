@@ -129,6 +129,8 @@ for /f "usebackq tokens=2 delims={}" %%i in (`type registry.json`) do (
         set registryType=%%~m
         :: Set default registry type if not specified
         if not defined registryType set registryType=REG_SZ
+        :: Add reg_ prefix to registry type if not present
+        if not "%registryType:~0,4%" == "reg_" set registryType=reg_%registryType%
         :: Check if the key is for the current OS architecture
         if "!architecture!"=="%OS: =%" (
             :: Check if the registry value already exists
