@@ -66,7 +66,7 @@ The registry.json file contains the registry keys that need to be updated with t
 }
 ```
 
-The RegistryType doesn't need to be defined, by default it will make it set to be a string. (SZ).
+The RegistryType doesn't need to be defined, by default it will make it set to be a string (`SZ`).
 
 Possible values include: 
 - SZ: for string values
@@ -77,7 +77,7 @@ Possible values include:
 - EXPAND_SZ: for expandable string values
 - NONE: for registry values without a defined data type
 
-Normally a prefix is added before the types, but the code does this automatically, for you.
+Normally a prefix should be added before the types in the `reg`, but the code does this automatically, for you.
 
 ### shortcuts.json (optional)
 
