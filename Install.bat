@@ -1,7 +1,19 @@
+:: Warning: You are not allowed to remove this message if you decide to use or redistribute the script
+:: This script was created by Frozen Snow. The source code can be found here: https://github.com/frozensnowy/Symlink-Installer
+:: It was last edited on 12/15/2022
+
 @Echo off
 Echo ############################################################
 Echo ##                                                        ##
-Echo ##                   SymLink Installer                    ##
+Echo ##               Symlink Installer Script                 ##
+Echo ##                                                        ##
+Echo ## This script creates a symlink on a local machine. A    ##
+Echo ## symlink is a type of file that points to another file  ##
+Echo ## or directory on the file system. The user can specify  ##
+Echo ## the source and target paths for the symlink in a JSON  ##
+Echo ## file named 'paths.json'. The script also adds registry ##
+Echo ## values and creates shortcuts if the 'keys.json' and    ##
+Echo ## 'shortcuts.json' files are present.                    ##
 Echo ##                                                        ##
 Echo ############################################################
 
@@ -105,33 +117,30 @@ for /f "tokens=1" %%a in ('fsutil fsinfo drivetype %TARGET:~0,1%') do (
   )
 )
 
+:: Now we add registry keys to the system using keys.json
 
 :: Read and parse the JSON file containing the registry keys
-for /f "delims=" %%i in (keys.json) do (
+for /f "usebackq tokens=2 delims={}" %%i in (`type keys.json`) do (
     :: Parse the current key object to get the architecture, path, and value
-    for /f "tokens=1,3,5 delims=:" %%j in ("%%i") do (
-        set architecture=%%j
-        set path=%%k
-        set value=%%l
+    for /f "usebackq tokens=*" %%j in (`echo %%i`) do (
+        set architecture=%%~j
+        set path=%%~k
+        set value=%%~l
         :: Check if the key is for the current OS architecture
-        if "%architecture%"=="%OS: =%" (
+        if "!architecture!"=="%OS: =%" (
             :: Check if the registry value already exists
-            reg query %path:~1,1%^"%~dp0%path:~2%^" /v %value:~1,1%^"%~dp0%value:~2%^" /ve
-						if %ERRORLEVEL% NEQ 0 (
-  						echo ERROR: Failed to query registry key.
-  						exit /b
-						)
+            reg query %windir%\system32\%path:~1,1%^"%~dp0%path:~2%^" /v %value:~1,1%^"%~dp0%value:~2%^" /ve | find /i "ERROR"
             if not errorlevel 1 (
-                :: Add the registry value
-                reg add %path:~1,1%^"%~dp0%path:~2%^" /v %value:~1,1%^"%~dp0%value:~2%^" /t REG_SZ /d %value:~1,1%^"%~dp0%value:~2%^"
-            ) else (
                 :: Get the type and value of the registry value
-                for /f "tokens=2,4 delims==" %%k in (`reg query %path:~1,1%^"%~dp0%path:~2%^" /v %value:~1,1%^"%~dp0%value:~2%^" /t ^| find /i "REG_SZ"`) do (
+                for /f "tokens=2,4 delims==" %%k in (`reg query %windir%\system32\%path:~1,1%^"%~dp0%path:~2%^" /v %value:~1,1%^"%~dp0%value:~2%^" /t ^| find /i "REG_SZ"`) do (
                     set type=%%k
                     set val=%%l
                 )
                 :: Modify the registry value
-                reg add %path:~1,1%^"%~dp0%path:~2%^" /v %value:~1,1%^"%~dp0%value:~2%^" /t %type% /d %val% /f
+                reg add %windir%\system32\%path:~1,1%^"%~dp0%path:~2%^" /v %value:~1,1%^"%~dp0%value:~2%^" /t %type% /d %val% /f
+            ) else (
+                :: Add the registry value
+                reg add %windir%\system32\%path:~1,1%^"%~dp0%path:~2%^" /v %value:~1,1%^"%~dp0%value:~2%^" /t REG_SZ /d %value:~1,1%^"%~dp0%value:~2%^"
             )
         )
     )
@@ -144,6 +153,8 @@ if %ERRORLEVEL% neq 0 (
     exit /B
 )
 
+:: Now we create shortcuts with optional arguments using shortcuts.json
+
 :: Read and parse the JSON file containing the shortcut information
 for /f "delims=" %%i in (shortcuts.json) do (
     :: Parse the current shortcut object to get the source, destination, and arguments
@@ -152,14 +163,13 @@ for /f "delims=" %%i in (shortcuts.json) do (
         set destination=%%k
         set arguments=%%l
 
-        :: Check if the version of Windows is Vista or later
-        ver | find "6.0" > nul
-        if %ERRORLEVEL% neq 0 (
-            :: Windows is older than Vista, create a symbolic link
-            %windir%\system32\cmd.exe /c mklink /D %destination% %source% %arguments%
-        ) else (
+        :: Create the appropriate shortcut based on the version of Windows
+        if "%SystemRoot%\system32\cmd.exe /c ver | find "6.0" > nul" == "0" (
             :: Windows is Vista or later, create a shortcut
-            %windir%\system32\cmd.exe /c mklink /H %destination% %source% %arguments%
+            %windir%\system32\mklink /H %destination% %source% %arguments%
+        ) else (
+            :: Windows is older than Vista, create a symbolic link
+            %windir%\system32\mklink /D %destination% %source% %arguments%
         )
     )
 )
