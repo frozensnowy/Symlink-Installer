@@ -8,7 +8,8 @@
     {
       "architecture": "64-bit",
       "path": "HKEY_LOCAL_MACHINE\\Software\\MyApp\\Settings",
-      "value": "C:\\Program Files\\MyApp"
+      "value": "C:\\Program Files\\MyApp",
+      "registryType": "REG_SZ"
     }
   ]
 }
