@@ -85,27 +85,25 @@ for /f "tokens=2 delims={}" %%a in ('echo %JSON% ^| findstr /b /c:"{" /e /c:"}"'
 
 
 :: Read and parse the JSON file containing the registry keys
-for /f "delims=" %%i in (registry.json) do (
+for /f "usebackq tokens=2 delims={}" %%i in (`type registry.json`) do (
     :: Parse the current key object to get the architecture, path, and value
-    for /f "tokens=1,3,5 delims=:" %%j in ("%%i") do (
-        set architecture=%%j
-        set path=%%k
-        set value=%%l
+    for /f "usebackq tokens=*" %%j in (`echo %%i`) do (
+        set architecture=%%~j
+        set path=%%~k
+        set value=%%~l
+        set registryType=%%~m
+        :: Set default registry type if not specified
+        if not defined registryType set registryType=REG_SZ
+        :: Add reg_ prefix to registry type if not present
+        if not "%registryType:~0,4%" == "reg_" set registryType=reg_%registryType%
         :: Check if the key is for the current OS architecture
-        if "%architecture%"=="%OS: =%" (
-            :: Check if the registry value exists
-            reg query %path:~1,1%^"%~dp0%path:~2%^" /v %value:~1,1%^"%~dp0%value:~2%^" /ve
-						if %ERRORLEVEL% NEQ 0 (
-  						echo ERROR: Failed to query registry key.
-  						exit /b
-						)
-            if not errorlevel 1 (
-                :: Remove the registry value
-                reg delete %path:~1,1%^"%~dp0%path:~2%^" /v %value:~1,1%^"%~dp0%value:~2%^" /f
-            )
+        if "!architecture!"=="%OS: =%" (
+            :: Delete the registry value
+            reg delete %path% /v %value% /f
         )
     )
 )
+
 
 :: Handle any errors that may occur while removing the registry keys
 if %ERRORLEVEL% neq 0 (
